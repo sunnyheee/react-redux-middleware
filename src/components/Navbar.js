@@ -4,8 +4,15 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faSignOutAlt, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticateAction } from "../redux/actions/authenticateAction";
 
-const Navbar = ({ authenticate, logoutUser }) => {
+const Navbar = () => {
+  const authenticate = useSelector((state) => state.auth.authenticate);
+  console.log(authenticate, "authenticate!!");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef();
   const menuButtonRef = useRef();
@@ -18,12 +25,16 @@ const Navbar = ({ authenticate, logoutUser }) => {
     "H&M HOME",
     "지속가능성",
   ];
-  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    navigate("/login");
+  };
 
   const handleAuthAction = () => {
     if (authenticate) {
-      logoutUser();
+      dispatch(authenticateAction.logout());
     } else {
+      dispatch({ type: "LOGOUT" });
       navigate("/login");
     }
   };
@@ -33,9 +44,7 @@ const Navbar = ({ authenticate, logoutUser }) => {
       navigate(`/?q=${keyword}`);
     }
   };
-  const handleToggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

@@ -5,18 +5,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { productAction } from "../redux/actions/productAction";
 
 const ProductDetail = () => {
   let { id } = useParams();
-  const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("사이즈 선택");
+  const product = useSelector((state) => state.product.selectedItem);
+  const dispatch = useDispatch();
 
   const getProductDetail = async () => {
-    let url = `https://my-json-server.typicode.com/sunnyheee/react-webshopping/products/${id}`;
-    let res = await fetch(url);
-    let data = await res.json();
-    setProduct(data);
+    dispatch(productAction.getProductDetail(id));
   };
+
   useEffect(() => {
     getProductDetail();
   }, []);

@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticateAction } from "../redux/actions/authenticateAction";
 
-const Login = ({ setAuthenticate }) => {
+const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginUser = (e) => {
     e.preventDefault();
-    // setAuthenticate(true);
     dispatch(authenticateAction.login(id, password));
     navigate("/");
   };

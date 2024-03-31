@@ -5,32 +5,16 @@ import ProductAll from "./page/ProductAll";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/Navbar";
-import { useEffect, useState } from "react";
 import PrivateRoute from "./route/PrivateRoute";
 
 function App() {
-  const navigate = useNavigate();
-  const [authenticate, setAuthenticate] = useState(false);
-  useEffect(() => {}, [authenticate]);
-
-  const logoutUser = () => {
-    setAuthenticate(false);
-    navigate("/");
-  };
-
   return (
     <main>
-      <Navbar authenticate={authenticate} logoutUser={logoutUser} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<ProductAll />} />
-        <Route
-          path="/login"
-          element={<Login setAuthenticate={setAuthenticate} />}
-        />
-        <Route
-          path="/product/:id"
-          element={<PrivateRoute authenticate={authenticate} />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/product/:id" element={<PrivateRoute />} />
       </Routes>
     </main>
   );
