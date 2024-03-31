@@ -1,1 +1,1 @@
-# react-redux-middleware
+# react-webshopping middleware
