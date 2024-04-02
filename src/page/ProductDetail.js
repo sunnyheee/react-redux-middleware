@@ -6,16 +6,17 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { productAction } from "../redux/actions/productAction";
+import { fetchDetailProduct } from "../reducers/productSlice";
 
 const ProductDetail = () => {
   let { id } = useParams();
   const [selectedSize, setSelectedSize] = useState("사이즈 선택");
   const product = useSelector((state) => state.product.selectedItem);
+  console.log(product, "produ!");
   const dispatch = useDispatch();
 
   const getProductDetail = async () => {
-    dispatch(productAction.getProductDetail(id));
+    dispatch(fetchDetailProduct(id));
   };
 
   useEffect(() => {
